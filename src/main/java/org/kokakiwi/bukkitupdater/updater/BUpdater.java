@@ -217,7 +217,7 @@ public class BUpdater {
 			
 			if(plug.dependencies != null)
 			{
-				Iterator i = plug.dependencies.iterator();
+				Iterator<?> i = plug.dependencies.iterator();
 				while(i.hasNext())
 				{
 					Element dep = (Element) i.next();
@@ -227,7 +227,7 @@ public class BUpdater {
 						logger.info("BukkitUpdater : " + plug.name + " require '" + depend.name + "' plugin, now installing it...");
 						if(plugin.getPluginManager().getPlugin(depend.name) == null)
 						{
-							String installDep = install(depend.id);
+							install(depend.id);
 						}
 					}else {
 						logger.warning("BukkitUpdater : Plugin require depency '" + dep.getAttributeValue("id") + "' but it isn't in repositories.");
@@ -279,7 +279,7 @@ public class BUpdater {
 				
 				if(plug.dependencies != null)
 				{
-					Iterator i = plug.dependencies.iterator();
+					Iterator<?> i = plug.dependencies.iterator();
 					while(i.hasNext())
 					{
 						Element dep = (Element) i.next();
@@ -289,7 +289,7 @@ public class BUpdater {
 							logger.info("BukkitUpdater : " + plug.name + " require '" + depend.name + "' plugin, now installing it...");
 							if(plugin.getPluginManager().getPlugin(depend.name) == null)
 							{
-								String installDep = install(depend.id);
+								install(depend.id);
 							}
 						}else {
 							logger.warning("BukkitUpdater : Plugin require depency '" + dep.getAttributeValue("id") + "' but it isn't in repositories.");
@@ -306,7 +306,7 @@ public class BUpdater {
 					UnZip.unzip(new File("bukkitUpdates/archives/" + plug.fileUrl.substring(plug.fileUrl.lastIndexOf("/") + 1)), new File("plugins/"));
 				}
 				
-				String loadPlugin = load(id);
+				load(id);
 				return "Plugin installed!";
 			}else{
 				return "Plugin already installed!";

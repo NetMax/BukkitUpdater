@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kokakiwi</groupId>
   <artifactId>bukkitupdater</artifactId>
-  <version>0.2.2</version>
+  <version>0.2.3</version>
   <name>BukkitUpdater</name>
   <description>Bukkit core and plugins updater</description>
   <repositories>
@@ -24,7 +24,7 @@
           <name>libs-snapshot</name>
           <url>http://repo.bukkit.org/artifactory/libs-snapshot</url>
         </repository>
-      </repositories>
+  </repositories>
       <pluginRepositories>
         <pluginRepository>
           <snapshots>
@@ -97,13 +97,6 @@
   	</dependency>
   	<dependency>
   		<groupId>org.bukkit</groupId>
-  		<artifactId>groupmanager</artifactId>
-  		<version>1.0alpha4</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.bukkit</groupId>
   		<artifactId>permissions</artifactId>
   		<version>2.5.4</version>
   		<type>jar</type>
@@ -113,6 +106,12 @@
   		<groupId>org.jdom</groupId>
   		<artifactId>jdom</artifactId>
   		<version>1.1</version>
+  		<type>jar</type>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.anjocaido</groupId>
+  		<artifactId>GroupManager</artifactId>
+  		<version>1.0-alpha-5-SNAPSHOT</version>
   		<type>jar</type>
   	</dependency>
   </dependencies>

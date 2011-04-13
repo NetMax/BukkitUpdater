@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -17,7 +16,7 @@ public class UpdaterConfiguration {
 	
 	private Configuration config;
 	private List<String> updateUrls;
-	private int updateTimer;
+	private long updateTimer;
 	
 	public UpdaterConfiguration(BukkitUpdater bukkitUpdater) throws IOException
 	{
@@ -113,6 +112,8 @@ public class UpdaterConfiguration {
 		
 		updateUrls = config.getStringList("updateUrls", null);
 		updateTimer = config.getInt("updateTimer", 43200000);
+		
+		updateTimer = updateTimer * 20;
 	}
 	
 	public boolean set(String node, Object value)
@@ -135,7 +136,7 @@ public class UpdaterConfiguration {
 		return config;
 	}
 
-	public int getUpdateTimer() {
+	public long getUpdateTimer() {
 		return updateTimer;
 	}
 }

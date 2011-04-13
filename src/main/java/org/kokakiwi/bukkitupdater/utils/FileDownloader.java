@@ -1,6 +1,5 @@
 package org.kokakiwi.bukkitupdater.utils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.logging.Logger;
 
 import org.kokakiwi.bukkitupdater.BukkitUpdater;
@@ -57,5 +55,9 @@ public class FileDownloader {
 		while ((len = inputStream.read(buffer)) > 0) {
 			outputStream.write(buffer, 0, len);
 		}
+	}
+
+	public BukkitUpdater getPlugin() {
+		return plugin;
 	}
 }

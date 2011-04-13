@@ -16,7 +16,7 @@ public class PermissionsChecker {
 		NONE
 	}
 	
-	private final Logger logger = Logger.getLogger("Minecraft.BukkitUpdater.PermissionsChecker");
+	private final Logger logger = Logger.getLogger("Minecraft");
 	
 	private final BukkitUpdater plugin;
 	private final PermissionHandler handler;
@@ -40,6 +40,7 @@ public class PermissionsChecker {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean has(Player player, String permission)
 	{
 		if(handler == PermissionHandler.GROUP_MANAGER)

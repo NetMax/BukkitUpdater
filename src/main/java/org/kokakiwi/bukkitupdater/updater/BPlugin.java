@@ -14,7 +14,7 @@ public class BPlugin {
 	
 	public String url = "";
 	public Element archive = null;
-	public List dependencies = null;
+	public List<?> dependencies = null;
 	public String bukkitBuild = null;
 	
 	public BPlugin(String id, String name, String version, String author, String fileType, String fileUrl)
