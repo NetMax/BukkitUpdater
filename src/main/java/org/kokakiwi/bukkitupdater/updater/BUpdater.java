@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -106,7 +108,8 @@ public class BUpdater {
 						continue;
 					
 					BPlugin bplug = new BPlugin(plug.getChildText("id"), plug.getChildText("name"), plug.getChildText("version"),
-							plug.getChildText("author"), plug.getChildText("file-type"), plug.getChildText("file-url"));
+							plug.getChildText("author"), plug.getChildText("website"), plug.getChildText("file-type"),
+							plug.getChildText("file-url"), plug.getChildText("description"));
 					
 					if(plug.getChildText("url") != null)
 						bplug.url = plug.getChildText("url");
@@ -407,37 +410,81 @@ public class BUpdater {
 			return "Plugin not found.";
 		}
 	}
+	
+	public String list(String type, int page)
+	{
+		return list(type, page, 6);
+	}
 
-	public String list(String type) {
+	public String list(String type, int page, int numPlugins) {
 		if(type.equalsIgnoreCase("installed"))
 		{
-			String installed = "";
-			for(Plugin p : plugin.getPluginManager().getPlugins())
+			Plugin[] installedPlugins = plugin.getPluginManager().getPlugins();
+			
+			int start = (page - 1) * numPlugins;
+			int end = page * numPlugins;
+			if(start < installedPlugins.length)
 			{
-				installed += p.getDescription().getName() + " (v" + p.getDescription().getVersion() + "), ";
+				String installed = "";
+				
+				for(int i = start; i < end; i++)
+				{
+					if(installedPlugins.length > i)
+					{
+						Plugin plugin = installedPlugins[i];
+						
+						installed += ChatColor.GREEN + plugin.getDescription().getName()
+									+ ChatColor.AQUA + " (v" + plugin.getDescription().getVersion() + ")"
+									+ ChatColor.WHITE + " : " + ChatColor.GRAY
+									+ plugin.getDescription().getDescription();
+						
+						if(i < end)
+							installed += "\n";
+					}
+				}
+				
+				return installed;
+			}else{
+				return ChatColor.RED + "Not enough plugins to display this page.";
 			}
-                        if (installed.length()!=0) installed = installed.substring(0, installed.length()-2);
-
-			return installed;
 		}else if(type.equalsIgnoreCase("available"))
 		{
-
-
-                    if (plugins==null || plugins.isEmpty()) {
-                        return "The repository contains no plugins.";
-                    } else {
-                        TreeMap<String, BPlugin> sorted = new TreeMap<String, BPlugin>(plugins);
-                        String available = "";
-                        for (String id : sorted.keySet()) {
-                            BPlugin bp = sorted.get(id);
-                            if (!bp.name.isEmpty())
-                                available += ChatColor.WHITE + "- " + bp.id + ": " + ChatColor.GREEN + bp.name + " (v" + bp.version + ")"  + ChatColor.WHITE + (!bp.author.equals("?") && !bp.author.equals("unknown")?" by " + bp.author:"") + "\n";
-                        }
-
-                        //available = available.substring(0, available.length()-2);
-
-                        return available;
-                    }
+			if (plugins == null || plugins.isEmpty()) {
+				return "The repository contains no plugins.";
+			} else {
+				
+				TreeMap<String, BPlugin> sorted = new TreeMap<String, BPlugin>(plugins);
+				Object[] availablePlugins = sorted.keySet().toArray();
+				
+				int start = (page - 1) * numPlugins;
+				int end = page * numPlugins;
+				
+				if(start < availablePlugins.length)
+				{
+					String available = "";
+					
+					for(int i = start; i < end; i++)
+					{
+						if(availablePlugins.length > i)
+						{
+							BPlugin plugin = sorted.get(availablePlugins[i]);
+							
+							available += ChatColor.GREEN + plugin.name + ChatColor.AQUA + " (v"
+											+ plugin.version + ChatColor.WHITE + " : "
+											+ ChatColor.GRAY + plugin.description;
+							
+							if(i < end)
+								available += "\n";
+						}
+					}
+					
+					return available;
+				}else{
+					return ChatColor.RED + "Not enough plugins to display this page.";
+				}
+                
+                
+            }
 		}
 		return type;
 	}

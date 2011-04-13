@@ -15,25 +15,47 @@ public class ListCommand extends CommandModel {
 		this.commandLabel = commandLabel;
 		this.args = args;
 		
-		if(args.length != 2) {
-                    sender.sendMessage("Bad syntax for list command. Use /updater list <available/installed>");
-                    return false;
-                }
+		if(args.length < 2) {
+            sender.sendMessage("Bad syntax for list command. Use /updater list <available/installed> [page]");
+            return false;
+        }
 			
 		
 		if(sender instanceof Player)
 		{
 			if(plugin.perms.has((Player) sender, "updater.list"))
 			{
-				String message = plugin.updater.list(args[1]);
-				sender.sendMessage(ChatColor.GRAY.toString() + message);
+				int page;
+				
+				if(args.length == 3)
+					page = Integer.parseInt(args[2]);
+				else
+					page = 1;
+				
+				String message = plugin.updater.list(args[1], page);
+				
+				String[] messages = message.split("\n");
+				
+				for(String m : messages)
+				{
+					sender.sendMessage(ChatColor.GRAY.toString() + m);
+				}
+				
 				return true;
 			}else {
 				sender.sendMessage(ChatColor.RED.toString() + "You're not permitted to use this command!");
 				return false;
 			}
 		}else{
-			String message = plugin.updater.list(args[1]);
+			int page;
+			
+			if(args.length == 3)
+				page = Integer.parseInt(args[2]);
+			else
+				page = 1;
+			
+			String message = "Plugins list:\n" + plugin.updater.list(args[1], page);
+			
 			sender.sendMessage(message);
 			return true;
 		}

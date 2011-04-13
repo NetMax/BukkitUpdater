@@ -111,7 +111,7 @@ public class UpdaterConfiguration {
 		config.load();
 		
 		updateUrls = config.getStringList("updateUrls", null);
-		updateTimer = config.getInt("updateTimer", 43200000);
+		updateTimer = config.getInt("updateTimer", 86400);
 		
 		updateTimer = updateTimer * 50;
 	}
