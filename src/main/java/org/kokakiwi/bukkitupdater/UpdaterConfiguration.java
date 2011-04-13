@@ -113,7 +113,7 @@ public class UpdaterConfiguration {
 		updateUrls = config.getStringList("updateUrls", null);
 		updateTimer = config.getInt("updateTimer", 43200000);
 		
-		updateTimer = updateTimer * 20;
+		updateTimer = updateTimer * 50;
 	}
 	
 	public boolean set(String node, Object value)
