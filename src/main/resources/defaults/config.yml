@@ -2,5 +2,5 @@ updateUrls:
   - 'http://kokakiwi.github.com/BukkitUpdater/updateList.xml'
   - 'http://www.minerepo.tk/repo.xml'
   - 'http://www.kokabsolu.com/updateList.xml'
-bukkitCoreVersion: 'recommended'
-updateTimer: 43200000
+bukkitCoreVersion: 'recommended' #CraftBukkit Core version to update. 'recommended' or 'snapshot'
+updateTimer: 86400 #Time between each updates (in seconds)

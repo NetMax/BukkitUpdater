@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -108,11 +106,13 @@ public class BUpdater {
 						continue;
 					
 					BPlugin bplug = new BPlugin(plug.getChildText("id"), plug.getChildText("name"), plug.getChildText("version"),
-							plug.getChildText("author"), plug.getChildText("website"), plug.getChildText("file-type"),
-							plug.getChildText("file-url"), plug.getChildText("description"));
+							plug.getChildText("author"), plug.getChildText("file-type"), plug.getChildText("file-url"));
 					
-					if(plug.getChildText("url") != null)
-						bplug.url = plug.getChildText("url");
+					if(plug.getChildText("website") != null)
+						bplug.website = plug.getChildText("website");
+					
+					if(plug.getChildText("description") != null)
+						bplug.description = plug.getChildText("description");
 					
 					if(bplug.fileType.equalsIgnoreCase("archive"))
 						bplug.archive = plug.getChild("archive");
@@ -435,8 +435,8 @@ public class BUpdater {
 						
 						installed += ChatColor.GREEN + plugin.getDescription().getName()
 									+ ChatColor.AQUA + " (v" + plugin.getDescription().getVersion() + ")"
-									+ ChatColor.WHITE + " : " + ChatColor.GRAY
-									+ plugin.getDescription().getDescription();
+									+ ChatColor.WHITE + (plugin.getDescription().getDescription() != null ? " : " + ChatColor.GRAY
+									+ plugin.getDescription().getDescription() : "");
 						
 						if(i < end)
 							installed += "\n";
@@ -470,8 +470,8 @@ public class BUpdater {
 							BPlugin plugin = sorted.get(availablePlugins[i]);
 							
 							available += ChatColor.GREEN + plugin.name + ChatColor.AQUA + " (v"
-											+ plugin.version + ChatColor.WHITE + " : "
-											+ ChatColor.GRAY + plugin.description;
+											+ plugin.version + ")" + (plugin.description != null ? ChatColor.WHITE + " : "
+											+ ChatColor.GRAY + plugin.description : "");
 							
 							if(i < end)
 								available += "\n";
@@ -487,5 +487,10 @@ public class BUpdater {
             }
 		}
 		return type;
+	}
+	
+	public BPlugin getPlugin(String pid)
+	{
+		return plugins.get(pid);
 	}
 }

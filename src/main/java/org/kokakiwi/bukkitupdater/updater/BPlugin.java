@@ -9,17 +9,16 @@ public class BPlugin {
 	public final String name;
 	public final String version;
 	public final String author;
-	public final String website;
 	public final String fileType;
 	public final String fileUrl;
-	public final String description;
 	
-	public String url = "";
+	public String website = null;
+	public String description = null;
 	public Element archive = null;
 	public List<?> dependencies = null;
 	public String bukkitBuild = null;
 	
-	public BPlugin(String id, String name, String version, String author, String website, String fileType, String fileUrl, String description)
+	public BPlugin(String id, String name, String version, String author, String fileType, String fileUrl)
 	{
 		this.id = id;
 		this.name = name;
@@ -27,7 +26,5 @@ public class BPlugin {
 		this.author = author;
 		this.fileType = fileType;
 		this.fileUrl = fileUrl;
-		this.website = website;
-		this.description = description;
 	}
 }
